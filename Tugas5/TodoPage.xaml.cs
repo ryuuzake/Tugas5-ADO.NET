@@ -101,9 +101,12 @@ namespace Tugas5
             var row = sender as DataGrid;
             var rowTodo = row.SelectedItem as Todo;
 
-            TodoIdTextBox.Text = rowTodo.Id.ToString();
-            TodoTitleTextBox.Text = rowTodo.Title;
-            TodoBodyTextBox.Text = rowTodo.Body;
+            if (rowTodo != null)
+            {
+                TodoIdTextBox.Text = rowTodo.Id.ToString();
+                TodoTitleTextBox.Text = rowTodo.Title;
+                TodoBodyTextBox.Text = rowTodo.Body;
+            }
         }
     }
 }

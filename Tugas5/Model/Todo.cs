@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
 namespace Tugas5.Model
 {

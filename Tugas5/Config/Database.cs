@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using Tugas5.Model;
 
@@ -12,38 +11,23 @@ namespace Tugas5.Config
 
         public Database()
         {
-            SqlConnection = CreateConnection();
-        }
-
-        private SqlConnection CreateConnection()
-        {
-            return new SqlConnection(ConnectionURL);
-        }
-
-        public void OpenConnection()
-        {
-            SqlConnection.Open();
-        }
-
-        public void CloseConnection()
-        {
-            SqlConnection.Close();
+            SqlConnection = new SqlConnection(ConnectionURL);
         }
 
         public void RunSQLCommand(string sqlQuery)
         {
-            OpenConnection();
+            SqlConnection.Open();
             var command = SqlConnection.CreateCommand();
             command.CommandText = sqlQuery;
             command.ExecuteNonQuery();
-            CloseConnection();
+            SqlConnection.Close();
         }
 
         public List<T> RunSQLQuery<T>(T obj, string sqlQuery) where T : IModel
         {
             var results = new List<T>();
 
-            OpenConnection();
+            SqlConnection.Open();
             var command = SqlConnection.CreateCommand();
             command.CommandText = sqlQuery;
             using (var reader = command.ExecuteReader())
@@ -53,7 +37,7 @@ namespace Tugas5.Config
                     results.Add((T) obj.CreateModelFromReader(reader));
                 }
             }
-            CloseConnection();
+            SqlConnection.Close();
 
             return results;
         }

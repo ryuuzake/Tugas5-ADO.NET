@@ -53,11 +53,14 @@ namespace Tugas5
         private void Update_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             var attachment = new Attachment() { Id = AttachmentId, TodoId = TodoId, Url = AttachmentUrl };
+            Repository.UpdateAttachment(AttachmentId, attachment);
+            ClearTextBox();
         }
 
         private void Delete_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Repository.DeleteAttachment(AttachmentId);
+            ClearTextBox();
         }
 
         private void Refresh_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -82,8 +85,11 @@ namespace Tugas5
             var row = sender as DataGrid;
             var rowTodo = row.SelectedItem as Attachment;
 
-            AttachmentIdTextBox.Text = rowTodo.Id.ToString();
-            AttachmentUrlTextBox.Text = rowTodo.Url;
+            if (rowTodo != null)
+            {
+                AttachmentIdTextBox.Text = rowTodo.Id.ToString();
+                AttachmentUrlTextBox.Text = rowTodo.Url;
+            }
         }
     }
 }
